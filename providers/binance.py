@@ -12,11 +12,13 @@ logger = getLogger("providers.binance")
 
 
 class BinanceProvider(DataProvider):
+    """Pairs from Binance: https://api.binance.com"""
     _basic_url = "https://api.binance.com"
     _pairs_endpoint = "/api/v3/exchangeInfo"
 
     @classmethod
     def _load_pairs(cls, only_traded: bool = True) -> Iterator[Tuple[str, str, str]]:
+        """Returns iterator over tuples (exchange_pair_name, base_coin_name, quote_coin_name)"""
         full_url = cls._basic_url + cls._pairs_endpoint
         response = GET(full_url)
         if response.status_code != 200:
@@ -54,4 +56,5 @@ class BinanceProvider(DataProvider):
 
     @staticmethod
     def load_binance_pairs(only_traded: bool = True):
+        """Returns iterator over tuples (exchange_pair_name, base_coin_name, quote_coin_name)"""
         return BinanceProvider._load_pairs(only_traded=only_traded)

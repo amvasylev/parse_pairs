@@ -12,11 +12,13 @@ logger = getLogger("providers.okex")
 
 
 class OkexProvider(DataProvider):
+    """Pairs from Okex: https://www.okex.com"""
     _basic_url = "https://www.okex.com"
     _pairs_endpoint = "/api/spot/v3/instruments"
 
     @classmethod
     def _load_pairs(cls, only_traded: bool = True) -> Iterator[Tuple[str, str, str]]:
+        """Returns iterator over tuples (exchange_pair_name, base_coin_name, quote_coin_name)"""
         full_url = cls._basic_url + cls._pairs_endpoint
         response = GET(full_url)
         if response.status_code != 200:
@@ -43,4 +45,5 @@ class OkexProvider(DataProvider):
 
     @staticmethod
     def load_okex_pairs(only_traded: bool = True):
+        """Returns iterator over tuples (exchange_pair_name, base_coin_name, quote_coin_name)"""
         return OkexProvider._load_pairs(only_traded=only_traded)
