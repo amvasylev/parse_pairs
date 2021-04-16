@@ -1,5 +1,7 @@
 Parse all pairs from Binance-SPOT and Okex-SPOT trading
 
+Used Python version: 3.7.3
+
 To run script use bash: `./main.py --help`
 
 To configure parameters, create `setting/{your_config_name}.toml` file with settings as in example `settings/default.toml`
